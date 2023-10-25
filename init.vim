@@ -36,6 +36,7 @@ set splitbelow
 set complete=.,k,w,b
 set completeopt=menu,menuone,noselect
 set shortmess+=c
+set tags=./.tags;,.tags
 
 let g:ctrlp_root_markers = ['.root']
 
