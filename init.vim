@@ -16,6 +16,7 @@ call plug#end()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup{
+ensure_installed = {"c","c","vim","vimdoc","python","bash","make","lua","vala","json","cmake","javascript","java","kotlin","yaml","xml"},
     highlight = {
 	enable = true,
     }
@@ -40,6 +41,6 @@ let g:ctrlp_root_markers = ['.root']
 
 let g:clang_format#code_style = "webkit"
 
-let g:apc_enable_ft ={'c':1}
+let g:apc_enable_ft ={'*':1}
 
 color dracula
