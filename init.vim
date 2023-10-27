@@ -12,6 +12,8 @@ call plug#begin()
  Plug 'rhysd/vim-clang-format'
  Plug 'skywind3000/vim-auto-popmenu'
  Plug 'skywind3000/vim-dict'
+ Plug 'skywind3000/asyncrun.vim'
+ Plug 'skywind3000/asynctasks.vim'
 call plug#end()
 
 lua << EOF
@@ -43,5 +45,7 @@ let g:ctrlp_root_markers = ['.root']
 let g:clang_format#code_style = "webkit"
 
 let g:apc_enable_ft ={'*':1}
+
+let g:asyncrun_open = 6
 
 color dracula
