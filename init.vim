@@ -11,12 +11,13 @@ call plug#begin()
  Plug 'nvim-treesitter/nvim-treesitter'
  Plug 'rhysd/vim-clang-format'
  Plug 'skywind3000/vim-auto-popmenu'
- Plug 'skywind3000/vim-dict'
+ Plug 'cnjhb/vim-dict'
+ Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup{
-ensure_installed = {"c","c","vim","vimdoc","python","bash","fish","make","lua","vala","json","cmake","javascript","java","kotlin","yaml","xml"},
+ensure_installed = {"c","cpp","vim","vimdoc","python","bash","fish","make","lua","vala","json","cmake","javascript","java","kotlin","yaml","xml"},
     highlight = {
 	enable = true,
     }
@@ -43,5 +44,9 @@ let g:ctrlp_root_markers = ['.root']
 let g:clang_format#code_style = "webkit"
 
 let g:apc_enable_ft ={'*':1}
+
+map <Leader> <Plug>(easymotion-prefix)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 color dracula
