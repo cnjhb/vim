@@ -45,6 +45,8 @@ let g:clang_format#code_style = "webkit"
 
 let g:apc_enable_ft ={'*':1}
 
+let g:vim_dict_config= {'html':'html,javascript,css','c':'c,glib'}
+
 map <Leader> <Plug>(easymotion-prefix)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
