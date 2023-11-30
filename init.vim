@@ -50,5 +50,7 @@ let g:vim_dict_config= {'html':'html,javascript,css','c':'c,glib'}
 map <Leader> <Plug>(easymotion-prefix)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+nmap <C-s> :w<cr>
+nmap <M-q> :q<cr>
 
 color dracula
