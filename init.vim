@@ -13,6 +13,9 @@ call plug#begin()
  Plug 'skywind3000/vim-auto-popmenu'
  Plug 'cnjhb/vim-dict'
  Plug 'easymotion/vim-easymotion'
+ Plug 'ryanoasis/vim-devicons'
+ Plug 'junegunn/fzf.vim'
+ Plug 'junegunn/fzf'
 call plug#end()
 
 lua << EOF
