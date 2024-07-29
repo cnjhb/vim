@@ -7,14 +7,14 @@ call plug#begin()
  Plug 'kana/vim-textobj-function'
  Plug 'kana/vim-operator-user'
  Plug 'mhinz/vim-startify'
- Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
  Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'rhysd/vim-clang-format'
 " Plug 'skywind3000/vim-auto-popmenu'
  Plug 'cnjhb/vim-dict'
  Plug 'easymotion/vim-easymotion'
-" Plug 'junegunn/fzf.vim'
-" Plug 'junegunn/fzf'
+ Plug 'junegunn/fzf.vim'
+ Plug 'junegunn/fzf'
 " Plug 'github/copilot.vim'
 " Plug 'dense-analysis/ale'
 " Plug 'chrisbra/unicode.vim'
@@ -23,8 +23,22 @@ call plug#begin()
  Plug 'hrsh7th/cmp-nvim-lsp'
  Plug 'hrsh7th/cmp-vsnip'
  Plug 'hrsh7th/vim-vsnip'
+ "Plug 'garymjr/nvim-snippets'
  Plug 'p00f/clangd_extensions.nvim'
+" Plug 'liuchengxu/vista.vim'
+ Plug 'stevearc/aerial.nvim'
+" Plug 'Exafunction/codeium.vim'
+ Plug 'skywind3000/asynctasks.vim'
+ Plug 'skywind3000/asyncrun.vim'
 call plug#end()
+
+let g:asyncrun_open = 6
+let g:asyncrun_rootmarks = ['.build_root']
+let g:asyncrun_bell = 1
+noremap <silent><f5> :AsyncTask file-run<cr>
+noremap <silent><f6> :AsyncTask project-run<cr>
+noremap <silent><f7> :AsyncTask project-build<cr>
+noremap <silent><f9> :AsyncTask file-build<cr>
 
 lua << EOF
 require'nvim-treesitter.configs'.setup{
@@ -43,6 +57,7 @@ require'lspconfig'.clangd.setup{
     cmd = { 'clangd' },
     capabilities = cap
 }
+require'lspconfig'.bashls.setup{}
 
 local cmp = require'cmp'
 local feedkeys = require'cmp.utils.feedkeys'
@@ -50,6 +65,8 @@ local feedkeys = require'cmp.utils.feedkeys'
 local t = function (str)
     return vim.api.nvim_replace_termcodes(str,true,true,true)
 end
+
+require("aerial").setup()
 
 cmp.setup{
     snippet = {
@@ -103,8 +120,6 @@ vim.api.nvim_create_autocmd('LspAttach',{
 		return "<C-p>"
 	    end
 	end,opts)
-	require("clangd_extensions.inlay_hints").setup_autocmd()
-	require("clangd_extensions.inlay_hints").set_inlay_hints()
     end,
 })
 EOF
@@ -119,14 +134,14 @@ set shiftwidth=4
 set lazyredraw
 set splitright
 set splitbelow
-if 0
 set complete=.,k,w,b
 set completeopt=menu,menuone,noselect
 set shortmess+=c
-endif
 set tags=./.tags;,.tags
 
 let g:ctrlp_root_markers = ['.root']
+
+nmap <C-p> :Files<cr>
 
 "let g:clang_format#code_style = "webkit"
 
@@ -148,5 +163,8 @@ nmap <Leader>f <Plug>(easymotion-overwin-f)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 nmap <C-s> :w<cr>
 nmap <M-q> :q<cr>
+nnoremap <silent>[q :cprevious<cr>
+nnoremap <silent>]q :cnext<cr>
+nmap <leader>a :AerialToggle!<cr>
 
 color dracula
