@@ -30,6 +30,7 @@ call plug#begin()
 " Plug 'Exafunction/codeium.vim'
  Plug 'skywind3000/asynctasks.vim'
  Plug 'skywind3000/asyncrun.vim'
+ Plug 'will133/vim-dirdiff'
 call plug#end()
 
 let g:asyncrun_open = 6
