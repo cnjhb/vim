@@ -47,20 +47,29 @@ ensure_installed = {"c","cpp","vim","vimdoc","python","bash","fish","make","lua"
     highlight = {
 	enable = true,
 	disable = {
-	    "c",
-	    "cpp",
+	   "c",
+	   "cpp",
 	}
     },
 }
 
-local cap = require('cmp_nvim_lsp').default_capabilities()
-require'lspconfig'.clangd.setup{
+local lspcfg=require'lspconfig'
+
+lspcfg.clangd.setup{
     cmd = { 'clangd' },
     capabilities = cap
 }
-require'lspconfig'.bashls.setup{}
+
+lspcfg.bashls.setup{}
+
+lspcfg.pyright.setup{}
+
+lspcfg.lua_ls.setup{}
+
+local cap = require('cmp_nvim_lsp').default_capabilities()
 
 local cmp = require'cmp'
+
 local feedkeys = require'cmp.utils.feedkeys'
 
 local t = function (str)
@@ -72,22 +81,22 @@ require("aerial").setup()
 cmp.setup{
     snippet = {
 	expand = function(args)
-	    vim.fn["vsnip#anonymous"](args.body)
+	   vim.fn["vsnip#anonymous"](args.body)
 	end,
     },
     mapping = cmp.mapping.preset.insert{
 	['<CR>'] = cmp.mapping.confirm{ select = true },
 	['<C-j>'] = cmp.mapping(function (fallback)
-	    if vim.fn['vsnip#jumpable'](1) == 1 then
+	   if vim.fn['vsnip#jumpable'](1) == 1 then
 		feedkeys.call(t"<Plug>(vsnip-jump-next)", "")
-	    else
+	   else
 		fallback()
-	    end
+	   end
 	end, { 'i', 's', 'c' }),
 	['<C-h>'] = cmp.mapping(function (fallback)
-	    if vim.fn['vsnip#jumpable'](-1) == 1 then
+	   if vim.fn['vsnip#jumpable'](-1) == 1 then
 		feedkeys.call(t"<Plug>(vsnip-jump-prev)", "")
-	    else
+	   else
 		fallback()
             end
 	end, { 'i', 's', 'c' }),
@@ -104,22 +113,22 @@ vim.api.nvim_create_autocmd('LspAttach',{
     group = vim.api.nvim_create_augroup('UserLspConfig',{}),
     callback = function(ev)
 	vim.keymap.set('n','<space>f',function()
-	    vim.lsp.buf.format { async = true }
+	   vim.lsp.buf.format { async = true }
 	end,opts)
 	vim.keymap.set('n','<space>r',vim.lsp.buf.references,opts)
 	vim.keymap.set('i','<C-n>',function()
-	    if cmp.visible() then
+	   if cmp.visible() then
 		cmp.select_next_item()
-	    else
+	   else
 		return "<C-n>"
-	    end
+	   end
 	end,opts)
 	vim.keymap.set('i','<C-p>',function()
-	    if cmp.visible() then
+	   if cmp.visible() then
 		cmp.select_prev_item()
-	    else
+	   else
 		return "<C-p>"
-	    end
+	   end
 	end,opts)
     end,
 })
