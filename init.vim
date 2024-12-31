@@ -27,10 +27,12 @@ call plug#begin()
  Plug 'p00f/clangd_extensions.nvim'
 " Plug 'liuchengxu/vista.vim'
  Plug 'stevearc/aerial.nvim'
-" Plug 'Exafunction/codeium.vim'
+ Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
  Plug 'skywind3000/asynctasks.vim'
  Plug 'skywind3000/asyncrun.vim'
  Plug 'will133/vim-dirdiff'
+ Plug 'Olical/conjure'
+" Plug 'rlue/vim-barbaric'
 call plug#end()
 
 let g:asyncrun_open = 6
@@ -47,8 +49,8 @@ ensure_installed = {"c","cpp","vim","vimdoc","python","bash","fish","make","lua"
     highlight = {
 	enable = true,
 	disable = {
-	   "c",
-	   "cpp",
+	    "c",
+	    "cpp",
 	}
     },
 }
@@ -66,6 +68,8 @@ lspcfg.pyright.setup{}
 
 lspcfg.lua_ls.setup{}
 
+lspcfg.yamlls.setup{}
+
 local cap = require('cmp_nvim_lsp').default_capabilities()
 
 local cmp = require'cmp'
@@ -81,22 +85,22 @@ require("aerial").setup()
 cmp.setup{
     snippet = {
 	expand = function(args)
-	   vim.fn["vsnip#anonymous"](args.body)
+	    vim.fn["vsnip#anonymous"](args.body)
 	end,
     },
     mapping = cmp.mapping.preset.insert{
 	['<CR>'] = cmp.mapping.confirm{ select = true },
 	['<C-j>'] = cmp.mapping(function (fallback)
-	   if vim.fn['vsnip#jumpable'](1) == 1 then
+	    if vim.fn['vsnip#jumpable'](1) == 1 then
 		feedkeys.call(t"<Plug>(vsnip-jump-next)", "")
-	   else
+	    else
 		fallback()
-	   end
+	    end
 	end, { 'i', 's', 'c' }),
 	['<C-h>'] = cmp.mapping(function (fallback)
-	   if vim.fn['vsnip#jumpable'](-1) == 1 then
+	    if vim.fn['vsnip#jumpable'](-1) == 1 then
 		feedkeys.call(t"<Plug>(vsnip-jump-prev)", "")
-	   else
+	    else
 		fallback()
             end
 	end, { 'i', 's', 'c' }),
@@ -113,22 +117,22 @@ vim.api.nvim_create_autocmd('LspAttach',{
     group = vim.api.nvim_create_augroup('UserLspConfig',{}),
     callback = function(ev)
 	vim.keymap.set('n','<space>f',function()
-	   vim.lsp.buf.format { async = true }
+	    vim.lsp.buf.format { async = true }
 	end,opts)
 	vim.keymap.set('n','<space>r',vim.lsp.buf.references,opts)
 	vim.keymap.set('i','<C-n>',function()
-	   if cmp.visible() then
+	    if cmp.visible() then
 		cmp.select_next_item()
-	   else
+	    else
 		return "<C-n>"
-	   end
+	    end
 	end,opts)
 	vim.keymap.set('i','<C-p>',function()
-	   if cmp.visible() then
+	    if cmp.visible() then
 		cmp.select_prev_item()
-	   else
+	    else
 		return "<C-p>"
-	   end
+	    end
 	end,opts)
     end,
 })
@@ -152,6 +156,7 @@ set tags=./.tags;,.tags
 let g:ctrlp_root_markers = ['.root']
 
 nmap <C-p> :Files<cr>
+nmap <M-p> :Buffers<cr>
 
 "let g:clang_format#code_style = "webkit"
 
